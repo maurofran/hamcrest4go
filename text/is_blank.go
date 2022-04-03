@@ -19,6 +19,7 @@ func IsNotBlank() matcher.Matcher[string] {
 var isBlankInstance = isBlank{}
 
 type isBlank struct {
+	matcher.Base
 }
 
 func (isBlank) Matches(value string) bool {
@@ -27,9 +28,4 @@ func (isBlank) Matches(value string) bool {
 
 func (isBlank) DescribeTo(description matcher.Description) {
 	description.AppendText("a blank string")
-}
-
-func (isBlank) DescribeMismatch(actual string, description matcher.Description) {
-	description.AppendText("was ")
-	description.AppendValue(actual)
 }

@@ -11,6 +11,7 @@ func HasPrefix(prefix string) matcher.Matcher[string] {
 }
 
 type hasPrefix struct {
+	matcher.Base
 	prefix string
 }
 
@@ -19,12 +20,7 @@ func (m hasPrefix) Matches(value string) bool {
 }
 
 func (m hasPrefix) DescribeTo(description matcher.Description) {
-	description.AppendText("a string with suffix '")
+	description.AppendText("a string with prefix \"")
 	description.AppendText(m.prefix)
-	description.AppendText("'")
-}
-
-func (hasPrefix) DescribeMismatch(actual string, description matcher.Description) {
-	description.AppendText("was ")
-	description.AppendValue(actual)
+	description.AppendText("\"")
 }

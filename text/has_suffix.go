@@ -11,6 +11,7 @@ func HasSuffix(suffix string) matcher.Matcher[string] {
 }
 
 type hasSuffix struct {
+	matcher.Base
 	suffix string
 }
 
@@ -19,12 +20,7 @@ func (m hasSuffix) Matches(value string) bool {
 }
 
 func (m hasSuffix) DescribeTo(description matcher.Description) {
-	description.AppendText("a string with suffix '")
+	description.AppendText("a string with suffix \"")
 	description.AppendText(m.suffix)
-	description.AppendText("'")
-}
-
-func (hasSuffix) DescribeMismatch(actual string, description matcher.Description) {
-	description.AppendText("was ")
-	description.AppendValue(actual)
+	description.AppendText("\"")
 }
