@@ -1,0 +1,1 @@
+# Hamcrest for GO
