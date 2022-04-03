@@ -16,6 +16,10 @@ type Float interface {
 	~float32 | ~float64
 }
 
+type Number interface {
+	Integer | Float
+}
+
 type Ordered interface {
-	Integer | Float | ~string
+	Number | ~string
 }

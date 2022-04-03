@@ -1,13 +1,19 @@
 package text
 
 import (
+	"github.com/maurofran/hamcrest4go/is"
 	"github.com/maurofran/hamcrest4go/matcher"
 	"strings"
 )
 
-// IsBlank matches blank strings
+// IsBlank matches blank strings.
 func IsBlank() matcher.Matcher[string] {
 	return isBlankInstance
+}
+
+// IsNotBlank matches not blank strings.
+func IsNotBlank() matcher.Matcher[string] {
+	return is.Not(IsBlank())
 }
 
 var isBlankInstance = isBlank{}
