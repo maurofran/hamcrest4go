@@ -1,0 +1,29 @@
+package text
+
+import (
+	"github.com/maurofran/hamcrest4go/matcher"
+	"strings"
+)
+
+// IsBlank matches blank strings
+func IsBlank() matcher.Matcher[string] {
+	return isBlankInstance
+}
+
+var isBlankInstance = isBlank{}
+
+type isBlank struct {
+}
+
+func (isBlank) Matches(value string) bool {
+	return strings.TrimSpace(value) == ""
+}
+
+func (isBlank) DescribeTo(description matcher.Description) {
+	description.AppendText("a blank string")
+}
+
+func (isBlank) DescribeMismatch(actual string, description matcher.Description) {
+	description.AppendText("was ")
+	description.AppendValue(actual)
+}
