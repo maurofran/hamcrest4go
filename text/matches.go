@@ -24,9 +24,9 @@ func (m matches) Matches(value string) bool {
 }
 
 func (m matches) DescribeTo(description matcher.Description) {
-	description.AppendText("a string matching the pattern '")
+	description.AppendText("a string matching the pattern \"")
 	description.AppendText(m.pattern.String())
-	description.AppendText("'")
+	description.AppendText("\"")
 }
 
 func (matches) DescribeMismatch(actual string, description matcher.Description) {

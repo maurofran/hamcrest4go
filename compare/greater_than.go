@@ -1,4 +1,4 @@
-package comparator
+package compare
 
 import (
 	"github.com/maurofran/hamcrest4go/constraints"
