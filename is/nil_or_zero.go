@@ -21,7 +21,7 @@ func (nilOrZero[T]) Matches(value T) bool {
 }
 
 func (nilOrZero[T]) DescribeTo(description matcher.Description) {
-	description.AppendText("nilOrZero")
+	description.AppendText("nil or zero value")
 }
 
 func (nilOrZero[T]) DescribeMismatch(actual T, description matcher.Description) {

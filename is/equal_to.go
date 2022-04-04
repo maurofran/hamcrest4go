@@ -3,8 +3,8 @@ package is
 import "github.com/maurofran/hamcrest4go/matcher"
 
 // Equaler is the constraint interface for an object that has the Equal method.
-type Equaler[O any] interface {
-	Equal(other O) bool
+type Equaler[T any] interface {
+	Equal(other T) bool
 }
 
 // EqualTo gets a matcher for nil value.
