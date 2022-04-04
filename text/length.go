@@ -1,14 +1,13 @@
 package text
 
 import (
-	"github.com/maurofran/hamcrest4go/comparator"
+	"github.com/maurofran/hamcrest4go/compare"
 	"github.com/maurofran/hamcrest4go/matcher"
-	"strings"
 )
 
 // HasExactLength check if given text has given exact length.
 func HasExactLength(length int) matcher.Matcher[string] {
-	return HasLength(comparator.EqualsTo(length))
+	return HasLength(compare.EqualsTo(length))
 }
 
 // HasLength check if given text has length matching the supplied matcher.
@@ -17,19 +16,15 @@ func HasLength(lengthMatcher matcher.Matcher[int]) matcher.Matcher[string] {
 }
 
 type hasLength struct {
+	matcher.Base
 	lengthMatcher matcher.Matcher[int]
 }
 
 func (l hasLength) Matches(value string) bool {
-	return strings.TrimSpace(value) == ""
+	return l.lengthMatcher.Matches(len(value))
 }
 
 func (l hasLength) DescribeTo(description matcher.Description) {
-	description.AppendText("a string with length ")
+	description.AppendText("a string with length with ")
 	description.AppendDescriptionOf(l.lengthMatcher)
-}
-
-func (hasLength) DescribeMismatch(actual string, description matcher.Description) {
-	description.AppendText("was ")
-	description.AppendValue(actual)
 }

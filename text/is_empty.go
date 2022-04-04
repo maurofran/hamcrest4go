@@ -1,15 +1,24 @@
 package text
 
-import "github.com/maurofran/hamcrest4go/matcher"
+import (
+	"github.com/maurofran/hamcrest4go/is"
+	"github.com/maurofran/hamcrest4go/matcher"
+)
 
-// IsEmpty matches empty strings
+// IsEmpty matches empty strings.
 func IsEmpty() matcher.Matcher[string] {
 	return isEmptyInstance
+}
+
+// IsNotEmpty matches not empty strings.
+func IsNotEmpty() matcher.Matcher[string] {
+	return is.Not(IsEmpty())
 }
 
 var isEmptyInstance = isEmpty{}
 
 type isEmpty struct {
+	matcher.Base
 }
 
 func (isEmpty) Matches(value string) bool {
@@ -18,9 +27,4 @@ func (isEmpty) Matches(value string) bool {
 
 func (isEmpty) DescribeTo(description matcher.Description) {
 	description.AppendText("an empty string")
-}
-
-func (isEmpty) DescribeMismatch(actual string, description matcher.Description) {
-	description.AppendText("was ")
-	description.AppendValue(actual)
 }

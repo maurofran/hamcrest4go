@@ -28,12 +28,6 @@ type SelfDescribing interface {
 	DescribeTo(description Description)
 }
 
-func toString(value SelfDescribing) string {
-	description := StringDescription()
-	description.AppendDescriptionOf(value)
-	return description.String()
-}
-
 // Description is the representation of a matcher error description.
 type Description struct {
 	writer StringWriter
@@ -90,13 +84,13 @@ func (d Description) AppendValue(value interface{}) {
 		d.append(toGoSyntax(str))
 	} else if r, ok := value.(rune); ok {
 		d.append(toGoSyntax(string([]rune{r})))
+	} else if sd, ok := value.(SelfDescribing); ok {
+		sd.DescribeTo(d)
 	} else if reflect.TypeOf(value).Kind() == reflect.Slice || reflect.TypeOf(value).Kind() == reflect.Array {
 		slice := reflect.ValueOf(value)
 		d.appendSlice("[", ", ", "]", slice)
 	} else {
-		d.append("<")
 		d.append(descriptionOf(value))
-		d.append(">")
 	}
 }
 
@@ -130,7 +124,13 @@ func (d Description) String() string {
 }
 
 func descriptionOf(value interface{}) string {
-	return fmt.Sprintf("%s", value)
+	switch value.(type) {
+	case string:
+		return fmt.Sprintf("%q", value)
+	case fmt.Stringer:
+		return fmt.Sprintf("%s", value)
+	}
+	return fmt.Sprintf("%v", value)
 }
 
 func toGoSyntax(value string) string {

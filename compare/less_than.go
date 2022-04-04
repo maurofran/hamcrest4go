@@ -1,4 +1,4 @@
-package comparator
+package compare
 
 import (
 	"github.com/maurofran/hamcrest4go/constraints"
@@ -19,7 +19,7 @@ func (e lessThan[T]) Matches(value T) bool {
 }
 
 func (e lessThan[T]) DescribeTo(description matcher.Description) {
-	description.AppendText("a value lesser than to ")
+	description.AppendText("a value lesser than ")
 	description.AppendValue(e.ref)
 }
 

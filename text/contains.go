@@ -11,6 +11,7 @@ func Contains(substr string) matcher.Matcher[string] {
 }
 
 type contains struct {
+	matcher.Base
 	substr string
 }
 
@@ -19,12 +20,7 @@ func (m contains) Matches(value string) bool {
 }
 
 func (m contains) DescribeTo(description matcher.Description) {
-	description.AppendText("a string containing '")
+	description.AppendText("a string containing \"")
 	description.AppendText(m.substr)
-	description.AppendText("'")
-}
-
-func (contains) DescribeMismatch(actual string, description matcher.Description) {
-	description.AppendText("was ")
-	description.AppendValue(actual)
+	description.AppendText("\"")
 }
