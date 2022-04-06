@@ -19,7 +19,7 @@ func IsNotBlank() matcher.Matcher[string] {
 var isBlankInstance = isBlank{}
 
 type isBlank struct {
-	matcher.Base
+	matcher.Base[string]
 }
 
 func (isBlank) Matches(value string) bool {

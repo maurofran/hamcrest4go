@@ -11,7 +11,7 @@ func Contains(substr string) matcher.Matcher[string] {
 }
 
 type contains struct {
-	matcher.Base
+	matcher.Base[string]
 	substr string
 }
 

@@ -16,7 +16,7 @@ func HasLength(lengthMatcher matcher.Matcher[int]) matcher.Matcher[string] {
 }
 
 type hasLength struct {
-	matcher.Base
+	matcher.Base[string]
 	lengthMatcher matcher.Matcher[int]
 }
 

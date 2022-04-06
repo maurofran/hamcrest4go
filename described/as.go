@@ -29,7 +29,7 @@ func (a as[T]) Matches(value T) bool {
 
 func (a as[T]) DescribeTo(description matcher.Description) {
 	result := argPattern.ReplaceAllStringFunc(a.template, func(s string) string {
-		idx, _ := strconv.Atoi(s)
+		idx, _ := strconv.Atoi(s[1:])
 		description := matcher.StringDescription()
 		description.AppendValue(a.args[idx])
 		return description.String()
