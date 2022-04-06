@@ -4,7 +4,6 @@ import (
 	"github.com/maurofran/hamcrest4go/matcher"
 	"regexp"
 	"strconv"
-	"strings"
 )
 
 var argPattern = regexp.MustCompile("%([0-9]+)")
@@ -29,15 +28,13 @@ func (a as[T]) Matches(value T) bool {
 }
 
 func (a as[T]) DescribeTo(description matcher.Description) {
-	parts := argPattern.Split(a.template, -1)
-	for _, part := range parts {
-		if strings.HasPrefix(part, "%") {
-			idx, _ := strconv.Atoi(part[1:])
-			description.AppendValue(a.args[idx])
-		} else {
-			description.AppendText(part)
-		}
-	}
+	result := argPattern.ReplaceAllStringFunc(a.template, func(s string) string {
+		idx, _ := strconv.Atoi(s)
+		description := matcher.StringDescription()
+		description.AppendValue(a.args[idx])
+		return description.String()
+	})
+	description.AppendText(result)
 }
 
 func (a as[T]) DescribeMismatch(actual T, description matcher.Description) {
