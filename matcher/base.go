@@ -1,9 +1,9 @@
 package matcher
 
-type Base struct {
+type Base[T any] struct {
 }
 
-func (Base) DescribeMismatch(actual string, description Description) {
+func (Base[T]) DescribeMismatch(actual T, description Description) {
 	description.AppendText("was ")
 	description.AppendValue(actual)
 }

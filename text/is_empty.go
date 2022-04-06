@@ -18,7 +18,7 @@ func IsNotEmpty() matcher.Matcher[string] {
 var isEmptyInstance = isEmpty{}
 
 type isEmpty struct {
-	matcher.Base
+	matcher.Base[string]
 }
 
 func (isEmpty) Matches(value string) bool {

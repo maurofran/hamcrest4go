@@ -11,7 +11,7 @@ func HasPrefix(prefix string) matcher.Matcher[string] {
 }
 
 type hasPrefix struct {
-	matcher.Base
+	matcher.Base[string]
 	prefix string
 }
 

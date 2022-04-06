@@ -11,7 +11,7 @@ func HasSuffix(suffix string) matcher.Matcher[string] {
 }
 
 type hasSuffix struct {
-	matcher.Base
+	matcher.Base[string]
 	suffix string
 }
 
